@@ -1,0 +1,234 @@
+﻿#Automacro Campo de Aprendiz e up até 99 completa com Eden e Quest Arruaceiro
+#Codificação:  UTF-8
+#Editada por CALF
+#Agradecimentos: Allanon,ItsRachelfish,Rumpel,Orlok,Lone,China,Flamer,lututui,snaadboy,Revok,Hemp,Gaspel e a todos+VLW!
+#http://openkorebrasil.org/ | http://openkorebrasil.com.br/ & http://wiki.openkore.com
+#configiguração para arruaceiro
+automacro configigurar {
+exclusive 1
+location new_1-1 53 111, new_2-1 53 111, new_3-1 53 111, new_4-1 53 111, new_5-1 53 111
+run-once 1
+call {
+do ai auto
+do conf lockMap none
+do conf route_randomWalk 0
+do conf itemsTakeAuto 2
+do conf itemsGatherAuto 0
+do conf autoTalkCont 0
+do conf sellAuto 0
+do conf storageAuto 0
+do conf sitAuto_idle 0
+do conf sitAuto_hp_lower 0
+do conf sitAuto_hp_upper 0
+do conf sitAuto_sp_lower 0
+do conf sitAuto_sp_upper 0
+do conf attackAuto 1
+do conf attackAuto_party 1
+do conf attackAuto_onlyWhenSafe 0
+do conf attackAuto_followTarget 1
+do conf attackAuto_inLockOnly 0
+do conf attackAuto_notInTown 0
+do conf attackDistance 1.5
+do conf attackDistanceAuto 0
+do conf attackMaxDistance 2.5
+do conf attackMaxRouteDistance 100
+do conf attackMaxRouteTime 4
+do conf attackMinPlayerDistance 2
+do conf attackMinPortalDistance 4
+do conf attackUseWeapon 1
+do conf attackNoGiveup 1
+do conf attackCanSnipe 0
+do conf attackCheckLOS 1
+do conf attackLooters 1
+do conf attackChangeTarget 1
+do conf aggressiveAntiKS 1
+do conf statsAddAuto 1
+do conf statsAddAuto_list 20 agi, 5 dex, 20 agi
+do conf skillsAddAuto 1
+do conf skillsAddAuto_list NV_BASIC 9, TF_DOUBLE 10, TF_MISS 10, TF_STEAL 10, TF_HIDING 8, TF_POISON 10, TF_DETOXIFY 1, RG_SNATCHER 10, RG_STEALCOIN 10, RG_BACKSTAP 4, RG_TUNNELDRIVE 5, RG_RAID 5, RG_INTIMIDATE 5, RG_PLAGIARISM 10
+}
+}
+
+#condição de DC
+automacro desconectado {
+console /^(Desconectado do Servidor de Mapas)/i
+call resetando automacros
+}
+
+
+macro resetando automacros {
+release all
+do reload macros
+}
+
+
+#condição de reinicio caso morra
+automacro morte {
+console /^(Você morreu.)/i
+call voltando da morte
+}
+
+
+macro voltando da morte {
+release all
+do reload macros
+do conf route_randomWalk 1
+}
+
+
+#quando tiver a arma removida
+automacro strip {
+status EFST_NOEQUIPWEAPON
+call {
+do relog 5
+}
+timeout 10
+}
+#Inicio do campo de treinamento
+automacro Sprakki {
+base == 1
+class Novice
+exclusive 1
+job == 1
+location new_1-1, new_2-1, new_3-1, new_4-1, new_5-1
+run-once 1
+call {
+do move @rand(50,52) @rand(110,112)
+do talknpc 53 114 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c n #Sprakki
+do move @rand(146,148) @rand(110,112)
+}
+}
+
+
+automacro Sprakki2 {
+eval $::questList->{7117}->{'active'}
+exclusive 1
+location new_1-2, new_2-2, new_3-2, new_4-2, new_5-2
+run-once 1
+call {
+do move @rand(100,102) @rand(15,17)
+do talknpc 100 29 c w1 c w1 r0 w1 c w1 c n #Sprakki
+}
+}
+
+automacro aulas{
+class Novice
+exclusive 1
+location new_1-2, new_2-2, new_3-2, new_4-2, new_5-2
+run-once 1
+call {
+do move @rand(101,103) @rand(106,108)
+do talknpc 100 105 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c n #Brade
+do eq Tattered Novice Ninja Suit
+do eq Somber Novice Hood
+do eq Novice Slippers
+do eq Novice Guard
+do eq Novice False Eggshell
+do talknpc 100 105 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c n #Brade
+do move 115 119
+do talknpc 115 120 c w1 r0 w1 c w1 c w1 c n #Jinha
+do move @rand(101,103) @rand(103,108)
+pause 3
+do talknpc 100 105 c w1 c w1 c n #Brade
+do eq Novice Adventurer's Suit [1]
+do talknpc 100 105 c r1 #Brade
+}
+}
+
+automacro fim das aulas {
+exclusive 1
+equipped Novice Adventurer's Suit [1]
+location new_1-2, new_2-2, new_3-2, new_4-2, new_5-2
+run-once 1
+call {
+do move 33 @rand(173,175)
+pause 3
+do talknpc 33 172 c w1 c w1 c n #chocolat 
+pause 3
+do talknpc 30 176 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 c w1 r4 n #kafra
+pause 3
+do talknpc 33 176 c w1 c w1 c w1 c w1 c n #Zonda
+pause 3
+do talknpc 36 176 c w1 c n #Soldier
+pause 3
+do talknpc 33 172 c w1 c w1 c w1 c w1 c n #chocolat
+}
+}
+
+
+automacro iniciar treino {
+base == 5
+equipped Novice Adventurer's Suit [1]
+exclusive 1
+location new_1-3, new_2-3, new_3-3, new_4-3, new_5-3
+run-once 1
+call {
+do conf route_randomWalk 1
+}
+}
+
+automacro testefinal{
+location new_1-3, new_1-4
+job == 10
+exclusive 1
+run-once 1
+call {
+do conf route_randomWalk 0
+do move new_1-4
+do talknpc 100 29 c w1 c w1 c w1 c w1 c w1 c w1 r0 w1 c w1 r2 w1 c w1 c w1 c w1 c n
+}
+}
+
+automacro indopramocprydb{
+inventory "Orange Goey Mushroom" = 0
+inventory "Orange Net Mushroom" = 0
+location moc_ruins, moc_prydb1
+exclusive 1
+run-once 1
+call {
+do eq Novice Cutter [3]
+do conf attackAuto 0
+do move moc_prydb1
+do move moc_prydb1 40 133
+do talknpc 39 129 c w1 r0 c w1 c w1 r0 w1 c w1 c w1 r0 w1 c w1 c w1 c w1 r0 w1 c w1 c w1 c w1 c w1 r0 w1 c n
+}
+}
+
+automacro irprafazenda{
+location moc_ruins, moc_prybd1, morocc
+eval $::questList->{1013}->{'active'}
+inventory "Orange Goey Mushroom" < 8
+inventory "Orange Net Mushroom" < 6
+exclusive 1
+call {
+do move moc_ruins
+do move moc_ruins 139 125
+do talknpc 141 125 c n
+}
+}
+ 
+automacro test{
+location job_thief1
+exclusive 1
+run-once 1
+call {
+do conf teleportAuto_hp 0
+do conf itemsTakeAuto 2
+do conf attackAuto 1
+do conf route_randomWalk 1
+}
+}
+
+automacro acaboutest{
+location job_thief1, morocc, moc_ruins, moc_prydb1, moc_fild19
+base == 15
+exclusive 1
+run-once 1
+call {
+do attackAuto 2
+do is
+do move moc_prydb1
+do move moc_prydb1
+do move moc_prydb1 40 133
+}
+}
